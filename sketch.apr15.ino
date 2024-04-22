@@ -7,7 +7,11 @@
 #include <Servo.h>
 
 Servo myservos[4];          // Array to hold four servo objects
-int pos[4] = { 90, 90, 90, 90 };  // Array to hold current position of each servo
+int pos[4] = { 0, 0, 0, 0 };  // Array to hold current position of each servo
+int targetPos[4] = { 90, 90, 90, 90 };  // Array to hold target position of each servo
+unsigned long lastUpdate[4] = { 0, 0, 0, 0 }; // Last update time for each servo
+const int updateInterval = 15; // Time interval between each servo update (milliseconds)
+const int movementSpeed = 1;   // Speed of servo movement
 
 int RotateLeftPin = 2;  // Pin numbers for your buttons
 int RotateRightPin = 3;
@@ -53,6 +57,19 @@ void moveOppositeServo(int servoIndex, int pin) {
   }
 }
 
+void updateServoPosition(int servoIndex) {
+  unsigned long currentTime = millis();
+  if (currentTime - lastUpdate[servoIndex] >= updateInterval) {
+    if (pos[servoIndex] < targetPos[servoIndex]) {
+      pos[servoIndex] += movementSpeed;
+    } else if (pos[servoIndex] > targetPos[servoIndex]) {
+      pos[servoIndex] -= movementSpeed;
+    }
+    myservos[servoIndex].write(pos[servoIndex]);
+    lastUpdate[servoIndex] = currentTime;
+  }
+}
+
 void loop() {
   moveServo(0, RotateLeftPin);  // RotateLeftPin
   moveOppositeServo(0, RotateRightPin);  // RotateRightPin
@@ -64,7 +81,7 @@ void loop() {
   moveOppositeServo(3, ClawClosePin);  // ClawClosePin
   
   for (int i = 0; i < 4; i++) {
-    myservos[i].write(pos[i]);  // Update servo positions
+    updateServoPosition(i);
   }
   
   delay(20);
