@@ -1,1 +1,1 @@
-<img src="https://i.kym-cdn.com/photos/images/newsfeed/002/322/167/b9f.gif">
+<h1><img src="https://th.bing.com/th/id/OIP.xoLUiNN3_WSRbboQb0aRrgHaEv?rs=1&pid=ImgDetMain" width="30px"> Class of 2024 Physics Project <img src="https://th.bing.com/th/id/OIP.xoLUiNN3_WSRbboQb0aRrgHaEv?rs=1&pid=ImgDetMain" width="30px"></h1>
