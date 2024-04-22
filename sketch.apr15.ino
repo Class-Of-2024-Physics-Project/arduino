@@ -4,11 +4,10 @@
 #include <FirmataDefines.h>
 #include <FirmataMarshaller.h>
 #include <FirmataParser.h>
-
 #include <Servo.h>
 
 Servo myservos[4];          // Array to hold four servo objects
-int pos[4] = { 90, 0, 0, 0 };  // Array to hold current position of each servo
+int pos[4] = { 90, 90, 90, 90 };  // Array to hold current position of each servo
 
 int RotateLeftPin = 2;  // Pin numbers for your buttons
 int RotateRightPin = 3;
@@ -40,49 +39,33 @@ void setup() {
   Serial.begin(9600);
 }
 
+void moveServo(int servoIndex, int pin) {
+  if (digitalRead(pin) == LOW) {
+    pos[servoIndex] == 180 ?: pos[servoIndex]++;
+    Serial.println("Button pressed. Servo moved to HIGH");
+  }
+}
+
+void moveOppositeServo(int servoIndex, int pin) {
+  if (digitalRead(pin) == LOW) {
+    pos[servoIndex] == 0 ?: pos[servoIndex]--;
+    Serial.println("Button pressed. Servo moved to LOW");
+  }
+}
+
 void loop() {
-  for (int i = 0; i < 4; i++) { 
-    // Servo 0 rotation ^
-    if (digitalRead(RotateLeftPin) == LOW) {
-      pos[0] == 180 ?: pos[0]++;
-      Serial.println("Arm was Rotated to LOW");
-    }
-
-    if (digitalRead(RotateRightPin) == LOW) {
-      pos[0] == 0 ?: pos[0]--;
-      Serial.println("Arm was Rotated to HIGH");
-    }
-    // Servo 1 Extension
-    if (digitalRead(ExtendUpPin) == LOW) {
-      pos[1] == 180 ?: pos[1]++;
-      Serial.println("Arm was extended LOW");
-    }
-
-    if (digitalRead(ExtendDownPin) == LOW) {
-      pos[1] == 0 ?: pos[1]--;
-      Serial.println("Arm was extended HIGH");
-    }
-    // Servo 2 Reach 
-    if (digitalRead(ReachDownPin) == LOW) {
-      pos[2] == 180 ?: pos[2]++;
-      Serial.println("Arm reached LOW");
-    }
-
-    if (digitalRead(ReachUpPin) == LOW) {
-      pos[2] == 0 ?: pos[2]--;
-      Serial.println("Arm reached HIGH");
-    }
-    // Servo 3 Claw
-    if (digitalRead(ClawOpenPin) == LOW) {
-      pos[3] == 180 ?: pos[3]++;
-      Serial.println("Clawed was opened");
-    }
-
-    if (digitalRead(ClawClosePin) == LOW) {
-      pos[3] == 0 ?: pos[3]--;
-      Serial.println("Claw was closed");
-    }
+  moveServo(0, RotateLeftPin);  // RotateLeftPin
+  moveOppositeServo(0, RotateRightPin);  // RotateRightPin
+  moveServo(1, ExtendUpPin);  // ExtendUpPin
+  moveOppositeServo(1, ExtendDownPin);  // ExtendDownPin
+  moveServo(2, ReachDownPin);  // ReachDownPin
+  moveOppositeServo(2, ReachUpPin);  // ReachUpPin
+  moveServo(3, ClawOpenPin);  // ClawOpenPin
+  moveOppositeServo(3, ClawClosePin);  // ClawClosePin
+  
+  for (int i = 0; i < 4; i++) {
     myservos[i].write(pos[i]);  // Update servo positions
   }
+  
   delay(20);
 }
