@@ -1,1 +1,1 @@
-<h1><img src="https://th.bing.com/th/id/OIP.xoLUiNN3_WSRbboQb0aRrgHaEv?rs=1&pid=ImgDetMain" width="30px"> Class of 2024 Physics Project <img src="https://th.bing.com/th/id/OIP.xoLUiNN3_WSRbboQb0aRrgHaEv?rs=1&pid=ImgDetMain" width="30px"></h1>
+<h1 align="center"><img src="https://www.vernier.com/wp-content/uploads/2020/05/Arduino-Loop-logo.png" width="35px"> Class of 2024 Physics Project <img src="https://www.vernier.com/wp-content/uploads/2020/05/Arduino-Loop-logo.png" width="35px"></h1>
